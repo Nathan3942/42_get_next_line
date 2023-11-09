@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:55:51 by njeanbou          #+#    #+#             */
-/*   Updated: 2023/11/09 04:35:10 by njeanbou         ###   ########.fr       */
+/*   Updated: 2023/11/09 05:53:13 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstdelone(t_list *lst, void (*del)(void	*));
-void	*ft_memcpy(void *restrict dest, const void *restrict src, size_t n);
 
 #endif
