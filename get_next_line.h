@@ -6,35 +6,38 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:55:51 by njeanbou          #+#    #+#             */
-/*   Updated: 2023/11/02 17:27:36 by njeanbou         ###   ########.fr       */
+/*   Updated: 2023/11/09 04:35:10 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stdlib.h>
-# include <unistd.h>
-
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
 # endif
 
+# include <fcntl.h>
+# include <stdlib.h>
+# include <unistd.h>
+
 typedef struct s_list
 {
 	char			*content;
+	int				length;
 	struct s_list	*next;
-}					t_list;
+}				t_list;
 
 char	*get_next_line(int fd);
-int		found_newline(t_list *temp);
-t_list	*ft_last(t_list *temp);
-void	generate_line(char **line, t_list *temp);
-size_t	ft_strlen(const char *str);
-void	read_to_temp(int fd, t_list **temp);
-void	add_temp(t_list **temp, char *buffer, int nbread);
-void	extract_line(t_list *temp, char **line);
-void	clean_temp(t_list **temp);
-void	free_temp(t_list *temp);
+void	read_and_stock(int fd, t_list **stock);
+void	creat_line(t_list *stock, char **line);
+int		found_newline(t_list *stock);
+void	refactor_line(t_list **stock);
+t_list	*ft_lstnew(void *content);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstdelone(t_list *lst, void (*del)(void	*));
+void	*ft_memcpy(void *restrict dest, const void *restrict src, size_t n);
 
 #endif

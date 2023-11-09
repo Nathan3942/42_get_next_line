@@ -6,91 +6,68 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:56:23 by njeanbou          #+#    #+#             */
-/*   Updated: 2023/11/02 17:27:17 by njeanbou         ###   ########.fr       */
+/*   Updated: 2023/11/09 04:05:42 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdlib.h>
 
-//Cherche '\n' pour la fin de ligne
-int	found_newline(t_list *temp)
+//problène de memoir
+t_list	*ft_lstnew(void *content)
 {
-	int		i;
-	t_list	*current;
+	t_list	*new_node;
 
-	if (temp == NULL)
-		return (0);
-	current = ft_last(temp);
-	i = 0;
-	while (current->content[i])
+	if (content == NULL)
+		return (NULL);
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->content = content;
+	new_node->next = NULL;
+	return (new_node);
+}
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	if (!lst || !new)
+		return ;
+	if (*lst)
+		ft_lstlast(*lst)->next = new;
+	else
+		*lst = new;
+}
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
 	{
-		if (current->content[i] == '\n')
-			return (1);
-		i++;
+		lst = lst->next;
 	}
-	return (0);
+	return (lst);
 }
 
-//Renvoie un pointeur vers le derrnier element de temp
-t_list	*ft_last(t_list *temp)
+void	ft_lstclear(t_list **lst, void (*del)(void	*))
 {
-	t_list	*current;
+	t_list	*node;
 
-	current = temp;
-	while (current && current->next)
-		current = current->next;
-	return (current);
-}
-
-//calcule le nombre de caractere dans la ligne avec '\n' et malloc
-void	generate_line(char **line, t_list *temp)
-{
-	int	i;
-	int	len;
-
-	len = 0;
-	while (temp)
+	if (!lst)
+		return ;
+	while (*lst)
 	{
-		i = 0;
-		while (temp->content[i])
-		{
-			if (temp->content[i] == '\n')
-			{
-				len++;
-				break ;
-			}
-			len++;
-			i++;
-		}
-		temp = temp->next;
-	}
-	*line = (char *)malloc((len + 1) * sizeof(char));
-}
-
-void	free_temp(t_list *temp)
-{
-	t_list	*current;
-	t_list	*next;
-
-	current = temp;
-	while (current)
-	{
-		free(current->content);
-		next = current->next;
-		free(current);
-		current = next;
+		node = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = node;
 	}
 }
 
-size_t	ft_strlen(const char *str)
+void	ft_lstdelone(t_list *lst, void (*del)(void	*))
 {
-	int	i;
-
-	i = 0;
-	while (*str != '\0')
+	if (lst && del)
 	{
-		i++;
-		str++;
+		(*del)(lst->content);
+		free(lst);
 	}
-	return (i);
 }

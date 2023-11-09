@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 13:44:30 by njeanbou          #+#    #+#             */
-/*   Updated: 2023/11/02 18:27:36 by njeanbou         ###   ########.fr       */
+/*   Updated: 2023/11/08 03:05:46 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(void)
 	int		fd;
 	char	*line;
 
-	fd = open("test", O_RDONLY);
+	fd = open("read_error.txt", O_RDONLY);
 	while (1)
 	{
 		line = get_next_line(fd);
