@@ -6,20 +6,17 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:56:05 by njeanbou          #+#    #+#             */
-/*   Updated: 2023/11/09 04:35:45 by njeanbou         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:13:03 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdlib.h>
 
 char	*get_next_line(int fd)
 {
 	static t_list	*stock = NULL;
 	char			*line;
-	int				i;
 
-	i = 0;
 	line = NULL;
 	if ((read(fd, 0, 0) < 0) || fd < 0 || BUFFER_SIZE <= 0)
 	{
